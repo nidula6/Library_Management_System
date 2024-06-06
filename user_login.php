@@ -3,18 +3,18 @@
 require 'config.php';
 
 // Initialize variables to store user input
-$email = $password = '';
+$username = $password = '';
 $errors = [];
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate email and password
-    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
     // Check if email is empty
-    if (empty($email)) {
-        $errors[] = "Email is required.";
+    if (empty($username)) {
+        $errors[] = "username is required.";
     }
 
     // Check if password is empty
@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If there are no errors, proceed with login
     if (empty($errors)) {
         // Prepare SQL statement to fetch user data
-        $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
-        $stmt->bind_param("s", $email);
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
