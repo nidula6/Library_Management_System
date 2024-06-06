@@ -38,6 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['firstname'] = $user['firstname'];
+                $_SESSION['lastname'] = $user['lastname'];
                 header("Location: admin_page.php"); // Redirect to dashboard or any other page
                 exit();
             } else {
