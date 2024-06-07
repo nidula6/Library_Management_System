@@ -59,28 +59,18 @@ if (isset($_GET['delete'])) {
 //          $lastname = $row['lastname'];
 //          $username = $row['username'];
 
-//     }
-// }
+    }
+}
 
-if (isset($_POST['edit'])) {
-    $email = $_POST['email'];
-    $firstname = $_POST['firstname'];
+if (isset($_POST['update'])) {
     
-    $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $user_id = $_POST['user_id'];
+    $email = $_POST['email'];
+   $firstname = $_POST['firstname'];
+   
+   $lastname = $_POST['lastname'];
+   $username = $_POST['username'];
 
-
-    $sql = "SELECT * FROM user WHERE user_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // User ID exists
-        // Here you can write code to update the user details or whatever you want to do.
-        $sql = "UPDATE user SET email='$email', first_name='$firstname' , last_name='$lastname' , username='$username' WHERE user_id = '$user_id'";
+    $sql = "UPDATE user SET email='$email', first_name='$firstname' , last_name='$lastname' , username='$username' WHERE user_id = '$user_id'";
     
     $conn->query($sql) or die($conn->error);
 
@@ -88,52 +78,6 @@ if (isset($_POST['edit'])) {
     $_SESSION['message'] = "Record has been Updated!";
     $_SESSION['msg_type'] = "warning";
     header("Location: admin_page.php");
-        
-    } else {
-        // User ID does not exist
-        echo "User ID does not exist.";
-    }
-
-    
-
-
-    
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-
-    <title>Document</title>
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Bootstrap CDN link  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <style>
-        .button {
-  background-color: #9ca4ff; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-    </style>
-</head>
-<body>
-<br>
-
-
-<a href="admin_page.php" class="button">Go Back</a>
-
-</body>
-</html>
