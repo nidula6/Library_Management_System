@@ -10,12 +10,12 @@ function is_valid_email($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function is_existing_user($username, $email, $conn) {
-    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ? OR email = ?");
+function is_existing_user($username, $email, $conn ,$user_id) {
+    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ? OR email = ?  OR user_id = ?");
     if (!$stmt) {
         die("Prepare failed: " . $conn->error);
     }
-    $stmt->bind_param("ss", $username, $email);
+    $stmt->bind_param("sss", $username, $email,$user_id);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->num_rows > 0;
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         $errors[] = "Invalid email format.";
     }
 
-    if (is_existing_user($username, $email, $conn)) {
+    if (is_existing_user($username, $email, $conn,$user_id)) {
         $errors[] = "Username or email already registered.";
     }
 

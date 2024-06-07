@@ -31,6 +31,8 @@ if(!isset($_SESSION['username'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+
+        
 </head>
 <body>
 <h3>Welcome, <?php echo $_SESSION['username'] ?></h3>
@@ -103,8 +105,7 @@ if(!isset($_SESSION['username'])){
                                     </td>
                                     
                                     <td>
-                                        <a href="admin_page.php?edit=<?php echo $row['user_id']; ?>"><button
-                                                class="btn btn-success">Edit</button></a>
+                                        
 
                                         <a href="process.php?delete=<?php echo $row['user_id'] ?>" class="btn btn-danger btn-xl"
                                             style="display: inline !important;">Delete</a>
@@ -146,9 +147,15 @@ if(!isset($_SESSION['username'])){
                 <div>
                     <div class="container" style="margin-top: 40px;">
                         <form action="process.php" method="POST">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
+                            
+
+
+                                <div class="form-group row">
+                                    <label for="text" class="col-sm-2 col-form-label" style="color: #e67067;"> Enter User ID to edit user details</label>
+                                 <div class="col-sm-10">
+
+                                    <input type="text" class="form-control" id="user_id" name="user_id"
+                                    placeholder="Enter user ID " style="width: 300px; font-color: red" Required>
 
                                 </div>
                             </div>
@@ -159,16 +166,17 @@ if(!isset($_SESSION['username'])){
                                 <div class="col-sm-10">
 
                                     <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Enter the email" style="width: 300px;" value="<?php echo $email; ?>" Required>
+                                        placeholder="Enter the email" style="width: 300px;"Required>
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for="firstname" class="col-sm-2 col-form-label">Fisrt Name</label>
                                 <div class="col-sm-10">
 
                                     <input type="text" class="form-control" id="firstname" name="firstname"
                                         placeholder="Enter the First Name" style="width: 300px;"
-                                        value="<?php echo $firstname; ?>" Required>
+                                         Required>
                                 </div>
                             </div>
 
@@ -178,7 +186,7 @@ if(!isset($_SESSION['username'])){
 
                                     <input type="text" class="form-control" id="lastname" name="lastname"
                                         placeholder="Enter the Last Name" style="width: 300px;"
-                                        value="<?php echo $lastname; ?>" Required>
+                                        Required>
                                 </div>
                             </div>
 
@@ -188,7 +196,7 @@ if(!isset($_SESSION['username'])){
 
                                     <input type="text" class="form-control" id="username" name="username"
                                         placeholder="Enter the username" style="width: 300px;"
-                                        value="<?php echo $username; ?>" Required>
+                                         Required>
                                 </div>
                             </div>
 
@@ -197,16 +205,13 @@ if(!isset($_SESSION['username'])){
 
                     </div>
                     <div>
-                        <?php
-                        if ('$update' == true):
-                            ?>
-                            <button type="submit" class="btn btn-primary" name="update">Edit</button>
+                        
+                    <a href="admin_page.php"><button
+                    class="btn btn-success" type="submit" name="submit">Edit</button></a>
+                        
                             
- 
-                        <?php else: ?>
-                            <button type="submit" class="btn btn-primary" name="save">Save</button>
 
-                        <?php endif; ?>
+                        
 
                     </div>
 

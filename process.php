@@ -44,40 +44,63 @@ if (isset($_GET['delete'])) {
     header("Location: admin_page.php");
 }
 
-if (isset($_GET['edit'])) {
-    $user_id = $_GET['edit'];
-    $update = true;
+// if (isset($_GET['edit'])) {
+//     $user_id = $_GET['edit'];
+//     $update = true;
 
-    // if session error occurs, use ==>  $_SESSION['error_up'] ="";
+//     // if session error occurs, use ==>  $_SESSION['error_up'] ="";
 
-    $result = $conn->query("SELECT * FROM user WHERE user_id = '$user_id'") or die($mysqli->error);
-    if (count(array($result)) == 1) {
-        $row = $result->fetch_array() or die($conn->error);
+//     $result = $conn->query("SELECT * FROM user WHERE user_id = '$user_id'") or die($mysqli->error);
+//     if (count(array($result)) == 1) {
+//         $row = $result->fetch_array() or die($conn->error);
         
-         $firstname = $row['firstname'];
-         $email = $row['email'];
-         $lastname = $row['lastname'];
-         $username = $row['username'];
+//          $firstname = $row['firstname'];
+//          $email = $row['email'];
+//          $lastname = $row['lastname'];
+//          $username = $row['username'];
 
-    }
-}
+//     }
+// }
 
-if (isset($_POST['update'])) {
-    
+
+if (isset($_POST['submit'])) {
+    $user_id = $_POST['user_id'];
     $email = $_POST['email'];
-   $firstname = $_POST['firstname'];
-   
-   $lastname = $_POST['lastname'];
-   $username = $_POST['username'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $username = $_POST['username'];
 
-    $sql = "UPDATE user SET email='$email', first_name='$firstname' , last_name='$lastname' , username='$username' WHERE user_id = '$user_id'";
-    
-    $conn->query($sql) or die($conn->error);
+    // Check if the user ID exists
+    $sql = "SELECT * FROM user WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
- 
-    $_SESSION['message'] = "Record has been Updated!";
-    $_SESSION['msg_type'] = "warning";
+    if ($result->num_rows > 0) {
+        // User ID exists, update the user details
+        $sql_update = "UPDATE user SET email=?, first_name=?, last_name=?, username=? WHERE user_id=?";
+        $stmt_update = $conn->prepare($sql_update);
+        $stmt_update->bind_param("sssss", $email, $firstname, $lastname, $username, $user_id);
+
+        if ($stmt_update->execute()) {
+            $_SESSION['message'] = "User details updated successfully!";
+            $_SESSION['msg_type'] = "success";
+        } else {
+            $_SESSION['message'] = "Error updating user details: " . $conn->error;
+            $_SESSION['msg_type'] = "danger";
+        }
+
+        $stmt_update->close();
+    } else {
+        // User ID does not exist
+        $_SESSION['message'] = "User ID not found!";
+        $_SESSION['msg_type'] = "danger";
+    }
+
+    $stmt->close();
     header("Location: admin_page.php");
+    exit();
 }
 
 ?>
