@@ -1,7 +1,6 @@
 <?php
 
 @include 'config.php';
-
 session_start();
 
 if(!isset($_SESSION['username'])){
@@ -277,6 +276,115 @@ if(!isset($_SESSION['username'])){
             </div>
         </form>
     </div>
+
+
+    
+
+    <div class="container">
+    <?php if (isset($_SESSION['message'])): ?>
+        <div style="display:flex; top:30px;" class="alert alert-<?= $_SESSION['msg_type'] ?> fade show" role="alert">
+            <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+            unset($_SESSION['msg_type']);
+            ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif; ?>
+
+    <div class="container">
+        <div style="margin-bottom:5em;">
+            <table id="tbl" class="table table-hover dt-responsive" style="width: 100%;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Book Name</th>
+                        <th>Book Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    require 'config.php';
+                    $sql = "SELECT book.book_id, book.book_name, bookcategory.category_Name 
+                            FROM book 
+                            JOIN bookcategory ON book.category_id = bookcategory.category_id";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row['book_id']; ?></td>
+                                <td><?php echo $row['book_name']; ?></td>
+                                <td><?php echo $row['category_Name']; ?></td>
+                                <td>
+                                    <a href="book_registration.php?delete=<?php echo $row['book_id'] ?>" class="btn btn-danger btn-xl" style="display: inline !important;">Delete</a>
+                                    
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>No results found</td></tr>";
+                    }
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" style="margin-top: 40px;">
+    <form action="book_registration.php" method="POST">
+        <div class="form-group row">
+            <label for="book_id" class="col-sm-2 col-form-label" style="color: #e67067;">Enter Book ID to edit Book details:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="book_id" name="book_id" placeholder="Enter Book ID" style="width: 300px;" required>
+            </div>
+        </div>
+
+        
+
+        <div class="form-group row">
+            <label for="book_name" class="col-sm-2 col-form-label">Book Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Enter Book Name" style="width: 300px;" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="category_id" class="col-sm-2 col-form-label">Book Category</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="category_id" name="category_id" style="width: 300px;" required>
+                    <?php
+                    require 'config.php';
+                    $sql = "SELECT * FROM bookcategory";
+                    $result = $conn->query($sql);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . $row['category_id'] . "'>" . $row['category_Name'] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button class="btn btn-success" type="submit" name="edit_book">Update Book Details</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
 
 
 </body>
