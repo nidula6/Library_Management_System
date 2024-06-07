@@ -35,6 +35,8 @@ if(!isset($_SESSION['username'])){
         
 </head>
 <body>
+
+
 <h3>Welcome, <?php echo $_SESSION['username'] ?></h3>
 <button type="button" class="btn btn-danger"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
 
@@ -127,7 +129,10 @@ if(!isset($_SESSION['username'])){
 
             </div>
 
-
+        <br>
+        <hr>
+        <br>
+        
             <!--update and add -->
             <div>
                 <div>
@@ -151,11 +156,11 @@ if(!isset($_SESSION['username'])){
 
 
                                 <div class="form-group row">
-                                    <label for="text" class="col-sm-2 col-form-label" style="color: #e67067;"> Enter User ID to edit user details</label>
+                                    <label for="text" class="col-sm-2 col-form-label" style="color: #e67067;"> Enter User ID to edit user details.</label>
                                  <div class="col-sm-10">
 
                                     <input type="text" class="form-control" id="user_id" name="user_id"
-                                    placeholder="Enter user ID " style="width: 300px; font-color: red" Required>
+                                    placeholder="Enter user ID " style="width: 300px;" Required>
 
                                 </div>
                             </div>
@@ -207,7 +212,7 @@ if(!isset($_SESSION['username'])){
                     <div>
                         
                     <a href="admin_page.php"><button
-                    class="btn btn-success" type="submit" name="submit">Edit</button></a>
+                    class="btn btn-success" type="submit" name="edit">Edit</button></a>
                         
                             
 
@@ -222,6 +227,56 @@ if(!isset($_SESSION['username'])){
             </div>
         </div>
 
+        <br>
+        <hr>
+        <br>
+
+        <div class="container">
+        <h2>Register a New Book</h2>
+        <form action="book_registration.php" method="POST">
+            <div class="form-group row">
+                <label for="book_id" class="col-sm-2 col-form-label">Book ID</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="book_id" name="book_id" placeholder="Enter Book ID (e.g., B001)" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="book_name" class="col-sm-2 col-form-label">Book Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Enter Book Name" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="book_category" class="col-sm-2 col-form-label">Book Category</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="book_category" name="book_category" required>
+                    <?php
+                        // Fetch categories from the database
+                        require 'config.php';
+                        $sql = "SELECT category_id, category_Name FROM bookcategory";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo '<option value="' . $row["category_id"] . '">' . $row["category_Name"] . '</option>';
+                            }
+                        }
+
+                        $conn->close();
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Register Book</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 
 </body>
