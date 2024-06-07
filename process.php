@@ -44,26 +44,10 @@ if (isset($_GET['delete'])) {
     header("Location: admin_page.php");
 }
 
-// if (isset($_GET['edit'])) {
-//     $user_id = $_GET['edit'];
-//     $update = true;
+ 
+if (isset($_POST['edit'])) {
 
-//     // if session error occurs, use ==>  $_SESSION['error_up'] ="";
-
-//     $result = $conn->query("SELECT * FROM user WHERE user_id = '$user_id'") or die($mysqli->error);
-//     if (count(array($result)) == 1) {
-//         $row = $result->fetch_array() or die($conn->error);
-        
-//          $firstname = $row['firstname'];
-//          $email = $row['email'];
-//          $lastname = $row['lastname'];
-//          $username = $row['username'];
-
-    }
-}
-
-if (isset($_POST['update'])) {
-    
+    $user_id = $_POST['user_id'];
     $email = $_POST['email'];
    $firstname = $_POST['firstname'];
    
