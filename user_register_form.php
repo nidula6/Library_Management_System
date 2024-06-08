@@ -23,7 +23,7 @@
    <ul>
 
       <li><a  href="index.php"><span class="material-symbols-outlined"> Home </span><p style="display: flex; float:right;"> Home</p></a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="about.php">About</a></li>
       <li><a href="login_form.php">Login</a></li>
       <li><a href="user_register_form.php" class="active">Sign Up</a></li>
 
