@@ -30,16 +30,127 @@ if(!isset($_SESSION['username'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-
         
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<style>
+    .oswald-12 {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+.arimo-1 {
+  font-family: "Arimo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
+}
+
+.form-container{
+   
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding:20px;
+   padding-bottom: 60px;
+   background: #eee;
+   border: none; 
+outline: none; 
+}
+
+.form-container form{
+   padding:20px;
+   border-radius: 5px;
+   box-shadow: 0 5px 10px rgba(0,0,0,.1);
+   background: #fff;
+   text-align: center;
+   width: 500px;
+   border: none; 
+outline: none; 
+}
+
+.form-container form h3{
+   font-size: 30px;
+   text-transform: uppercase;
+   margin-bottom: 10px;
+   color:#333;
+}
+
+.form-container form input,
+.form-container form select{
+   width: 100%;
+   padding:10px 15px;
+   font-size: 17px;
+   margin:8px 0;
+   background: #eee;
+   border-radius: 5px;
+   border: none; 
+outline: none; 
+}
+
+.form-container form select option{
+   background: #fff;
+   border: none; 
+outline: none; 
+}
+
+.form-container form .form-btn{
+   background: #9ca4ff;
+   color:white;
+   text-transform: capitalize;
+   font-size: 20px;
+   cursor: pointer;
+   border: none; 
+outline: none; 
+}
+
+.form-container form .form-btn:hover{
+   background: #2633c0;
+   border: none; 
+outline: none; 
+   color:#fff;
+}
+
+.form-container form p{
+   margin-top: 10px;
+   font-size: 20px;
+   border: none; 
+outline: none; 
+   color:#333;
+}
+
+.form-container form p a{
+   color:crimson;
+   border: none; 
+outline: none; 
+}
+
+.form-container form .error-msg{
+   margin:10px 0;
+   display: block;
+   background: crimson;
+   color:#fff;
+   border-radius: 5px;
+   font-size: 20px;
+   padding:10px;
+}
+</style>
+
 </head>
-<body>
+<body style=" background-color:#eeeeee">
+
+<div class="container">
+        <h3  style="font-size: 30px;text-transform: uppercase;margin-bottom: 10px;color:#333;">Welcome to the admin panel, <?php echo $_SESSION['username'] ?></h3>
+        <button type="button" class="btn btn-danger"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
+
+</div>
 
 
-<h3>Welcome, <?php echo $_SESSION['username'] ?></h3>
-<button type="button" class="btn btn-danger"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
-
-
+<br>
+<hr>
 
 
 <div class="container">
@@ -75,6 +186,7 @@ if(!isset($_SESSION['username'])){
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>User Name</th>
+                            <th>Password</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -86,23 +198,27 @@ if(!isset($_SESSION['username'])){
                         if ($result->num_rows > 0) {
                             
                             while ($row = $result->fetch_assoc()) {
+                                
                                 ?>
 
                                 <tr>
-                                    <td>
+                                    <td class="arimo-1">
                                         <?php echo $row['user_id']; ?>
                                     </td>
-                                    <td>
+                                    <td class="arimo-1">
                                         <?php echo $row['email']; ?>
                                     </td>
-                                    <td>
+                                    <td class="arimo-1">
                                         <?php echo $row['first_name']; ?>
                                     </td>
-                                    <td>
+                                    <td class="arimo-1">
                                         <?php echo $row['last_name']; ?>
                                     </td>
-                                    <td>
+                                    <td class="arimo-1">
                                         <?php echo $row['username']; ?>
+                                    </td>
+                                    <td class="arimo-1">
+                                        <?php echo $row['password']; ?>
                                     </td>
                                     
                                     <td>
@@ -128,159 +244,51 @@ if(!isset($_SESSION['username'])){
 
             </div>
 
-        <br>
-        <hr>
-        <br>
         
-            <!--update and add -->
-            <div>
-                <div>
-
-
-                    <?php
-                    if ('$update' == true):
-                        ?>
-                        <h4>Edit user</h4>
-
-                    <?php else: ?>
-                        <h4>Add user</h4>
-
-                    <?php endif; ?>
-
-                </div>
-                <div>
-                    <div class="container" style="margin-top: 40px;">
-                        <form action="process.php" method="POST">
-                            
-
-
-                                <div class="form-group row">
-                                    <label for="text" class="col-sm-2 col-form-label" style="color: #e67067;"> Enter User ID to edit user details.</label>
-                                 <div class="col-sm-10">
-
-                                    <input type="text" class="form-control" id="user_id" name="user_id"
-                                    placeholder="Enter user ID " style="width: 300px;" Required>
-
-                                </div>
-                            </div>
-
-                            
-                            <div class="form-group row">
-                                <label for="email" class="col-sm-2 col-form-label">email</label>
-                                <div class="col-sm-10">
-
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Enter the email" style="width: 300px;"Required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="firstname" class="col-sm-2 col-form-label">Fisrt Name</label>
-                                <div class="col-sm-10">
-
-                                    <input type="text" class="form-control" id="firstname" name="firstname"
-                                        placeholder="Enter the First Name" style="width: 300px;"
-                                         Required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
-                                <div class="col-sm-10">
-
-                                    <input type="text" class="form-control" id="lastname" name="lastname"
-                                        placeholder="Enter the Last Name" style="width: 300px;"
-                                        Required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="username" class="col-sm-2 col-form-label">username</label>
-                                <div class="col-sm-10">
-
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Enter the username" style="width: 300px;"
-                                         Required>
-                                </div>
-                            </div>
-
-                            
-
-
-                    </div>
-                    <div>
-                        
-                    <a href="admin_page.php"><button
-                    class="btn btn-success" type="submit" name="edit">Edit</button></a>
-                        
-                            
-
-                        
-
-                    </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-        </div>
-
-        <br>
         <hr>
-        <br>
+       
+        
+           
+        
 
+   <div class="form-container">
+
+<form action="process.php" method="post">
+   <h3 class="oswald-12" style="font-weight: bold;">Update user details </h3>
+   
+   
+   <input type="text" id="user_id" name="user_id"
+                        placeholder="Enter User ID to edit user details. "  Required><br><br>
+   
+  
+   <input type="email" id="email" name="email"
+                                        placeholder="Enter the email" Required><br><br>
+   
+   <input type="text" id="firstname" name="firstname"
+                                    placeholder="Enter the First Name" Required><br><br>
+   
+   
+    <input type="text" id="lastname" name="lastname"
+                                        placeholder="Enter the Last Name" Required><br><br>
+   
+   
+   <input type="text" id="username" name="username"
+                                        placeholder="Enter the username"  Required><br><br>
+   
+   
+    <input type="password" id="password" name="password"
+                                        placeholder="Enter the password">
+                    
+    <input type="submit" name="edit" value="Update details" class="form-btn">
+                        
+                     
+</form>
+
+</div>
+<!-- -------------------------------------------------------------------------------------------- -->
+
+        <hr>
         <div class="container">
-        <h2>Register a New Book</h2>
-        <form action="book_registration.php" method="POST">
-            <div class="form-group row">
-                <label for="book_id" class="col-sm-2 col-form-label">Book ID</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="book_id" name="book_id" placeholder="Enter Book ID (e.g., B001)" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="book_name" class="col-sm-2 col-form-label">Book Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Enter Book Name" required>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="book_category" class="col-sm-2 col-form-label">Book Category</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="book_category" name="book_category" required>
-                    <?php
-                        // Fetch categories from the database
-                        require 'config.php';
-                        $sql = "SELECT category_id, category_Name FROM bookcategory";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
-                                echo '<option value="' . $row["category_id"] . '">' . $row["category_Name"] . '</option>';
-                            }
-                        }
-
-                        $conn->close();
-                        ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Register Book</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-
-    
-
-    <div class="container">
     <?php if (isset($_SESSION['message'])): ?>
         <div style="display:flex; top:30px;" class="alert alert-<?= $_SESSION['msg_type'] ?> fade show" role="alert">
             <?php
@@ -338,29 +346,58 @@ if(!isset($_SESSION['username'])){
     </div>
 </div>
 
+        <div class="form-container" style="float: left;">
+        
+        <form action="book_registration.php" method="POST">
+            <h2   class="oswald-12" style="font-weight: bold;">Register a New Book</h2>
+            <br>
+           
+                    <input type="text" class="form-control" id="book_id" name="book_id" placeholder="Enter Book ID (e.g., B001)" required>
+        
+                    <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Enter Book Name" required>
+                
+                    <select  id="book_category" name="book_category" required>
+                    <?php
+                        // Fetch categories from the database
+                        require 'config.php';
+                        $sql = "SELECT category_id, category_Name FROM bookcategory";
+                        $result = $conn->query($sql);
 
-<div class="container" style="margin-top: 40px;">
-    <form action="book_registration.php" method="POST">
-        <div class="form-group row">
-            <label for="book_id" class="col-sm-2 col-form-label" style="color: #e67067;">Enter Book ID to edit Book details:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="book_id" name="book_id" placeholder="Enter Book ID" style="width: 300px;" required>
-            </div>
-        </div>
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo '<option value="' . $row["category_id"] . '">' . $row["category_Name"] . '</option>';
+                            }
+                        }
+
+                        $conn->close();
+                        ?>
+                    </select>
+                
+            
+                    <input type="submit"  value="Register Book" class="form-btn">
+            
+                  
+                
+            
+        </form>
+    </div>
+
+
+<div class="form-container" style="float:left">
+    <form action="edit_book.php" method="POST">
+        
+            <h3 for="book_id" class="oswald-12" style="font-weight: bold;">Enter Book ID to edit Book details:</h3>
+            
+                <input type="text" id="book_id" name="book_id" placeholder="Enter Book ID" style="width: 300px;" required>
+            
 
         
+                <input type="text"id="book_name" name="book_name" placeholder="Enter Book Name" style="width: 300px;" required>
+            
 
-        <div class="form-group row">
-            <label for="book_name" class="col-sm-2 col-form-label">Book Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Enter Book Name" style="width: 300px;" required>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="category_id" class="col-sm-2 col-form-label">Book Category</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="category_id" name="category_id" style="width: 300px;" required>
+        
+           
+                <select id="category_id" name="category_id" style="width: 300px;" required>
                     <?php
                     require 'config.php';
                     $sql = "SELECT * FROM bookcategory";
@@ -370,21 +407,35 @@ if(!isset($_SESSION['username'])){
                     }
                     ?>
                 </select>
-            </div>
-        </div>
 
-        <div class="form-group row">
-            <div class="col-sm-10 offset-sm-2">
-                <button class="btn btn-success" type="submit" name="edit_book">Update Book Details</button>
-            </div>
-        </div>
+                <input type="submit" name="edit_book" value="Update Book Details" class="form-btn">
+        
     </form>
 </div>
 
 
 
+<div class="form-container" style="float: left;">
 
+<form action="book_category.php" method="POST">
+            <h2   class="oswald-12" style="font-weight: bold;">Register a New Book Category</h2>
+            <br>
+           
+                    <input type="text" class="form-control" id="category_id" name="category_id" placeholder="Enter category_id (e.g., C001)" required>
+        
+                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter category Name" required>
+                
+                    
+                
+            
+                    <input type="submit"  value="Register Book" class="form-btn">
+            
+                  
+                
+            
+        </form>
 
+</div>
 
 
 </body>
