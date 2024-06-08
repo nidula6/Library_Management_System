@@ -69,15 +69,16 @@ if (isset($_POST['edit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $username = $_POST['username'];
-
+    $password = $_POST['password'];
     // Check if the user ID already exists in the user table
     $check_sql = "SELECT COUNT(*) as count FROM user WHERE user_id = '$user_id'";
     $check_result = $conn->query($check_sql);
     $check_row = $check_result->fetch_assoc();
 
     if ($check_row['count'] > 0) {
+        $hashed_password = md5($password);
         // If the user ID exists, update the user data
-        $update_sql = "UPDATE user SET email='$email', first_name='$firstname', last_name='$lastname', username='$username' WHERE user_id = '$user_id'";
+        $update_sql = "UPDATE user SET email='$email', first_name='$firstname', last_name='$lastname', username='$username', password='$hashed_password' WHERE user_id = '$user_id'";
         if ($conn->query($update_sql) === TRUE) {
             $_SESSION['message'] = "Record has been Updated!";
             $_SESSION['msg_type'] = "warning";

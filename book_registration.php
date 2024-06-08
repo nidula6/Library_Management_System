@@ -11,19 +11,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate Book ID using regular expression
     if (preg_match("/^B\d{3}$/", $book_id)) {
         // Insert book details into the database
-        $sql = "INSERT INTO book (book_id, book_name, category_id) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $book_id, $book_name, $book_category);
-        if ($stmt->execute()) {
-            echo "Book registered successfully.";
+        $sql = "INSERT INTO book (book_id, book_name, category_id) VALUES ('$book_id','$book_name','$book_category') ";
+        
+        if ($conn->query($sql) === TRUE) {
+            $_SESSION['message'] = "Book Registered Succesfully!";
+            $_SESSION['msg_type'] = "success";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $_SESSION['message'] = "Error Registering record: " . $conn->error;
+            $_SESSION['msg_type'] = "danger";
         }
-        $stmt->close();
     } else {
-        echo "Invalid Book ID format. The Book ID should be in the 'B<BOOK_ID>' format (e.g., B001).";
+        $_SESSION['message'] = "Book ID must be in the format 'B<BOOK_ID>' (e.g., B001). " . $conn->error;
+            $_SESSION['msg_type'] = "danger";
     }
-}
+    
+        $conn->close();
+        header("Location: admin_page.php");
+        exit();
+    //     if ($stmt->execute()) {
+    //         $_SESSION['message'] = "Book Registered Succesfully!";
+    //     $_SESSION['msg_type'] = "danger";
+    //     } else {
+    //         $_SESSION['message'] = "Error deleting record: " . $conn->error;
+    //         $_SESSION['msg_type'] = "danger"; 
+    //     }
+    //     $stmt->close();
+    // } else {
+    //     echo "Invalid Book ID format. The Book ID should be in the 'B<BOOK_ID>' format (e.g., B001).";
+    // }
+        }
+    
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
