@@ -1,6 +1,7 @@
 <?php
 
 @include 'config.php';
+
 session_start();
 
 if(!isset($_SESSION['username'])){
@@ -35,6 +36,8 @@ if(!isset($_SESSION['username'])){
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+
 <style>
     .oswald-12 {
   font-family: "Oswald", sans-serif;
@@ -142,10 +145,10 @@ outline: none;
 </head>
 <body style=" background-color:#eeeeee">
 
-<div class="container">
-        <h3  style="font-size: 30px;text-transform: uppercase;margin-bottom: 10px;color:#333;">Welcome to the admin panel, <?php echo $_SESSION['username'] ?></h3>
+<div style="background-color: #333;">
+        <h3  style="font-size: 30px;text-transform: uppercase;margin-bottom: 10px;color:white   ;">Welcome to the admin panel, <?php echo $_SESSION['username'] ?></h3>
         <button type="button" class="btn btn-danger"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
-
+<br>
 </div>
 
 
@@ -256,9 +259,12 @@ outline: none;
 <form action="process.php" method="post">
    <h3 class="oswald-12" style="font-weight: bold;">Update user details </h3>
    
-   
-   <input type="text" id="user_id" name="user_id"
+   <input type="text" id="user_idold" name="user_idold"
                         placeholder="Enter User ID to edit user details. "  Required><br><br>
+   
+  
+   <input type="text" id="user_idnew" name="user_idnew"
+                        placeholder="Enter New User ID "  Required><br><br>
    
   
    <input type="email" id="email" name="email"
@@ -388,11 +394,14 @@ outline: none;
         
             <h3 for="book_id" class="oswald-12" style="font-weight: bold;">Enter Book ID to edit Book details:</h3>
             
-                <input type="text" id="book_id" name="book_id" placeholder="Enter Book ID" style="width: 300px;" required>
+            <input type="text" id="book_idold" name="book_idold" placeholder="Enter Book ID" style="width: 300px;" required>
+            
+
+                <input type="text" id="book_idnew" name="book_idnew" placeholder="Enter New Book ID" style="width: 300px;" required>
             
 
         
-                <input type="text"id="book_name" name="book_name" placeholder="Enter Book Name" style="width: 300px;" required>
+                <input type="text"id="book_name" name="book_name" placeholder="Enter New Book Name" style="width: 300px;" required>
             
 
         
@@ -438,5 +447,66 @@ outline: none;
 </div>
 
 
+
+<div class="form-container" style="float:left">
+    <form action="update_book_C.php" method="POST">
+        
+            <h3 class="oswald-12" style="font-weight: bold;">Update Book Category details:</h3>
+            <label for="category_id" style="color:red;font-style :italic">Select Category ID you want to change:</label>
+            
+                <input type="text"id="category_id" name="category_id" placeholder="Enter old Book category ID" style="width: 300px;" required>
+            
+                <input type="text"id="category_idnew" name="category_idnew" placeholder="Enter New Book category ID" style="width: 300px;" required>
+            
+                <input type="text"id="category_name" name="category_name" placeholder="Enter New Book category name" style="width: 300px;" required>
+            
+
+                <input type="submit" name="update_book_C" value="Update Book Category Details" class="form-btn">
+        
+    </form>
+</div>
+
+<div class="container">
+        <div style="margin-bottom:5em;">
+            <table id="tbl" class="table table-hover dt-responsive" style="width: 100%;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Category ID</th>
+                        <th>Category Name</th>
+                        <th>Date Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    require 'config.php';
+                    $sql = "SELECT category_id,category_name,date_modified 
+                            FROM bookcategory";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><?php echo $row['category_id']; ?></td>
+                                <td><?php echo $row['category_name']; ?></td>
+                                <td><?php echo $row['date_modified']; ?></td>
+                                <td>
+                                    <a href="delete_category.php?delete=<?php echo $row['category_id'] ?>" class="btn btn-danger btn-xl" style="display: inline !important;">Delete</a>
+                                    
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>No results found</td></tr>";
+                    }
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
