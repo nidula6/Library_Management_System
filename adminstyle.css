@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:wght@100;300;400;500;600&display=swap');
+
+:root {
+    --green: #27ae60;
+    --dark-color: #219150;
+    --black: #444;
+    --light-color: #666;
+    --border: .1rem solid rgba(0, 0, 0, .1);
+    --border-hover: .1rem solid var(--black);
+    --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+
+}
+
+* {
+    font-family: 'poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+    transition: width none;
+}
+
+html {
+
+    overflow-x: hidden;
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    font-size: 62.5%;
+    width: 1rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--black);
+}
+
+.oswald-12 {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.arimo-1 {
+    font-family: "Arimo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+}
+
+.form-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 60px;
+    background: #eee;
+    border: none;
+    outline: none;
+}
+
+.form-container form {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    background: #fff;
+    text-align: center;
+    width: 500px;
+    border: none;
+    outline: none;
+}
+
+.form-container form h3 {
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.form-container form input,
+.form-container form select {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 17px;
+    margin: 8px 0;
+    background: #eee;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.form-container form select option {
+    background: #fff;
+    border: none;
+    outline: none;
+}
+
+.form-container form .form-btn {
+    background: #9ca4ff;
+    color: white;
+    text-transform: capitalize;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.form-container form .form-btn:hover {
+    background: #2633c0;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.form-container form p {
+    margin-top: 10px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    color: #333;
+}
+
+.form-container form p a {
+    color: crimson;
+    border: none;
+    outline: none;
+}
+
+.form-container form .error-msg {
+    margin: 10px 0;
+    display: block;
+    background: crimson;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+}
+
+/*navigation bar*/
+
+.header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.header ul li {
+    margin-left: 10px;
+}
+
+.header ul li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.header ul li a:hover{
+    background-color: #9ca4ff;
+    color: white;
+}
+
+/*.header ul li a.active {
+    color: white;
+    background-color: #9ca4ff;
+}*/
+
+.header ul li a.sign {
+    display: flex;
+    align-items: center;
+}
+
+.header.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+body {
+    height: 150rem;
+    /*scrolleeer get this */
+}

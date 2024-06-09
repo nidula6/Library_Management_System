@@ -31,132 +31,44 @@ if(!isset($_SESSION['username'])){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-        
 
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="adminstyle.css">
 
 <style>
-    .oswald-12 {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 200;
-  font-style: normal;
-}
-.arimo-1 {
-  font-family: "Arimo", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 450;
-  font-style: normal;
-}
-
-.form-container{
-   
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding:20px;
-   padding-bottom: 60px;
-   background: #eee;
-   border: none; 
-outline: none; 
-}
-
-.form-container form{
-   padding:20px;
-   border-radius: 5px;
-   box-shadow: 0 5px 10px rgba(0,0,0,.1);
-   background: #fff;
-   text-align: center;
-   width: 500px;
-   border: none; 
-outline: none; 
-}
-
-.form-container form h3{
-   font-size: 30px;
-   text-transform: uppercase;
-   margin-bottom: 10px;
-   color:#333;
-}
-
-.form-container form input,
-.form-container form select{
-   width: 100%;
-   padding:10px 15px;
-   font-size: 17px;
-   margin:8px 0;
-   background: #eee;
-   border-radius: 5px;
-   border: none; 
-outline: none; 
-}
-
-.form-container form select option{
-   background: #fff;
-   border: none; 
-outline: none; 
-}
-
-.form-container form .form-btn{
-   background: #9ca4ff;
-   color:white;
-   text-transform: capitalize;
-   font-size: 20px;
-   cursor: pointer;
-   border: none; 
-outline: none; 
-}
-
-.form-container form .form-btn:hover{
-   background: #2633c0;
-   border: none; 
-outline: none; 
-   color:#fff;
-}
-
-.form-container form p{
-   margin-top: 10px;
-   font-size: 20px;
-   border: none; 
-outline: none; 
-   color:#333;
-}
-
-.form-container form p a{
-   color:crimson;
-   border: none; 
-outline: none; 
-}
-
-.form-container form .error-msg{
-   margin:10px 0;
-   display: block;
-   background: crimson;
-   color:#fff;
-   border-radius: 5px;
-   font-size: 20px;
-   padding:10px;
-}
 </style>
 
 </head>
-<body style=" background-color:#eeeeee">
 
-<div style="background-color: #333;">
-        <h3  style="font-size: 30px;text-transform: uppercase;margin-bottom: 10px;color:white   ;">Welcome to the admin panel, <?php echo $_SESSION['username'] ?></h3>
-        <button type="button" class="btn btn-danger"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
-<br>
+
+<body style=" background-color:#eeeeee;">
+
+    <!--header section-->
+                 
+    <div id="user" style="background-color: #333;height:60px">
+        <span  style="font-size: 30px; text-transform: uppercase; margin-bottom: 10px; padding:10px; color:white  ;">  Welcome to the admin panel, <?php echo $_SESSION['username']." !"?></span>
+        <button align-item="left" type="button" class="btn btn-danger" style="display:flex;float:right"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
 </div>
+
+    <!-- Navigation menu -->
+<div  class="header">
+    <ul>
+        <li><a href="#user">user</a></li>
+        <li><a href="#books" class="sign">books</a></li>
+        <li><a href="#catagory" class="sign">book category</a></li>
+    </ul>
+</div>
+
 
 
 <br>
 <hr>
 
 
-<div class="container">
+<div  class="container">
         <?php
         if (isset($_SESSION['message'])): ?>
 
@@ -308,7 +220,7 @@ outline: none;
         </div>
     <?php endif; ?>
 
-    <div class="container">
+    <div id="books"class="container">
         <div style="margin-bottom:5em;">
             <table id="tbl" class="table table-hover dt-responsive" style="width: 100%;">
                 <thead class="thead-dark">
@@ -424,49 +336,7 @@ outline: none;
 
 
 
-<div class="form-container" style="float: left;">
-
-<form action="book_category.php" method="POST">
-            <h2   class="oswald-12" style="font-weight: bold;">Register a New Book Category</h2>
-            <br>
-           
-                    <input type="text" class="form-control" id="category_id" name="category_id" placeholder="Enter category_id (e.g., C001)" required>
-        
-                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter category Name" required>
-                
-                    
-                
-            
-                    <input type="submit"  value="Register Book" class="form-btn">
-            
-                  
-                
-            
-        </form>
-
-</div>
-
-
-
-<div class="form-container" style="float:left">
-    <form action="update_book_C.php" method="POST">
-        
-            <h3 class="oswald-12" style="font-weight: bold;">Update Book Category details:</h3>
-            <label for="category_id" style="color:red;font-style :italic">Select Category ID you want to change:</label>
-            
-                <input type="text"id="category_id" name="category_id" placeholder="Enter old Book category ID" style="width: 300px;" required>
-            
-                <input type="text"id="category_idnew" name="category_idnew" placeholder="Enter New Book category ID" style="width: 300px;" required>
-            
-                <input type="text"id="category_name" name="category_name" placeholder="Enter New Book category name" style="width: 300px;" required>
-            
-
-                <input type="submit" name="update_book_C" value="Update Book Category Details" class="form-btn">
-        
-    </form>
-</div>
-
-<div class="container">
+<div  class="container">
         <div style="margin-bottom:5em;">
             <table id="tbl" class="table table-hover dt-responsive" style="width: 100%;">
                 <thead class="thead-dark">
@@ -508,5 +378,49 @@ outline: none;
         </div>
     </div>
 </div>
+
+<div id="catagory" class="form-container" style="float: left;">
+
+<form action="book_category.php" method="POST">
+            <h2   class="oswald-12" style="font-weight: bold;">Register a New Book Category</h2>
+            <br>
+           
+                    <input type="text" class="form-control" id="category_id" name="category_id" placeholder="Enter category_id (e.g., C001)" required>
+        
+                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter category Name" required>
+                
+                    
+                
+            
+                    <input type="submit"  value="Register Book" class="form-btn">
+            
+                  
+                
+            
+        </form>
+
+</div>
+
+
+
+<div class="form-container" style="float:left">
+    <form action="update_book_C.php" method="POST">
+        
+            <h3 class="oswald-12" style="font-weight: bold;">Update Book Category details:</h3>
+            <label for="category_id" style="color:red;font-style :italic">Select Category ID you want to change:</label>
+            
+                <input type="text"id="category_id" name="category_id" placeholder="Enter old Book category ID" style="width: 300px;" required>
+            
+                <input type="text"id="category_idnew" name="category_idnew" placeholder="Enter New Book category ID" style="width: 300px;" required>
+            
+                <input type="text"id="category_name" name="category_name" placeholder="Enter New Book category name" style="width: 300px;" required>
+            
+
+                <input type="submit" name="update_book_C" value="Update Book Category Details" class="form-btn">
+        
+    </form>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
