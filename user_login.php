@@ -54,57 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Close database connection
+
 $conn->close();
 
-// $errors = array();
-
-// // Check if the form is submitted
-// if (isset($_POST['submit'])) {
-//     require 'config.php';
-//     // Validate email and password
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-
-//     // Check if email is empty
-//     if (empty($email)) {
-//         $errors[] = "Email is required.";
-//     }
-
-//     // Check if password is empty
-//     if (empty($password)) {
-//         $errors[] = "Password is required.";
-//     }
-
-//     // If there are no errors, proceed with login
-//     if (empty($errors)) {
-//         // Prepare SQL statement to fetch user data
-//         $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
-//         $stmt->bind_param("s", $email);
-//         $stmt->execute();
-//         $result = $stmt->get_result();
-
-//         if ($result->num_rows > 0) {
-//             // User found, verify password
-//             $user = $result->fetch_assoc();
-//             if (password_verify($password, $user['password'])) {
-//                 // Password is correct, start session and redirect user
-                
-//                 header("Location: admin_page.php"); // Redirect to dashboard or any other page
-//                 exit();
-//             } else {
-//                 // Incorrect password
-//                 $errors[] = "Invalid email or password.";
-//             }
-//         } else {
-//             // User not found
-//             $errors[] = "Invalid email or password.";
-//         }
-//     }
-// }
-
-// // Close database connection
-// $conn->close();
 
 ?>
 
