@@ -48,7 +48,8 @@ if(!isset($_SESSION['username'])){
 
     <!--header section-->
                  
-    <div id="user" style="background-color: #333;height:60px">
+    <div id="user" style="background-color:#434B82;align-items:center;">
+        
         <span  style="font-size: 30px; text-transform: uppercase; margin-bottom: 10px; padding:10px; color:white  ;">  Welcome to the admin panel, <?php echo $_SESSION['username']." !"?></span>
         <button align-item="left" type="button" class="btn btn-danger" style="display:flex;float:right"><a href="logout.php" class="button" style="color: white;">Logout</a></button>
 </div>
@@ -56,9 +57,9 @@ if(!isset($_SESSION['username'])){
     <!-- Navigation menu -->
 <div  class="header">
     <ul>
-        <li><a href="#user">user</a></li>
-        <li><a href="#books" class="sign">books</a></li>
-        <li><a href="#catagory" class="sign">book category</a></li>
+        <li><a href="#user">Users</a></li>
+        <li><a href="#books" class="sign">Books</a></li>
+        <li><a href="#catagory" class="sign">Book category</a></li>
     </ul>
 </div>
 
@@ -67,7 +68,7 @@ if(!isset($_SESSION['username'])){
 <br>
 <hr>
 
-
+<h2 class="oswald-12" style="font-weight: bold;text-align:center">Users Section</h2>
 <div  class="container">
         <?php
         if (isset($_SESSION['message'])): ?>
@@ -206,6 +207,7 @@ if(!isset($_SESSION['username'])){
 <!-- -------------------------------------------------------------------------------------------- -->
 
         <hr>
+        <h2 class="oswald-12" style="font-weight: bold;text-align:center">Book Section</h2>
         <div class="container">
     <?php if (isset($_SESSION['message'])): ?>
         <div style="display:flex; top:30px;" class="alert alert-<?= $_SESSION['msg_type'] ?> fade show" role="alert">
@@ -333,8 +335,9 @@ if(!isset($_SESSION['username'])){
         
     </form>
 </div>
+<hr>
 
-
+<h2 class="oswald-12" style="font-weight: bold;text-align:center">Book category Section</h2>
 
 <div  class="container">
         <div style="margin-bottom:5em;">

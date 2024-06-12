@@ -28,17 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->close();
         header("Location: admin_page.php");
         exit();
-    //     if ($stmt->execute()) {
-    //         $_SESSION['message'] = "Book Registered Succesfully!";
-    //     $_SESSION['msg_type'] = "danger";
-    //     } else {
-    //         $_SESSION['message'] = "Error deleting record: " . $conn->error;
-    //         $_SESSION['msg_type'] = "danger"; 
-    //     }
-    //     $stmt->close();
-    // } else {
-    //     echo "Invalid Book ID format. The Book ID should be in the 'B<BOOK_ID>' format (e.g., B001).";
-    // }
+ 
         }
     
 
@@ -60,26 +50,6 @@ if (isset($_GET['delete'])) {
 }
 
 
-// if (isset($_POST['edit_book'])) {
-//     $book_id = $_POST['book_id'];
-//     $book_name = $_POST['book_name'];
-//     $category_id = $_POST['category_id'];
-
-
-//     $sql = "UPDATE book SET book_id='$book_id' , book_name='$book_name', category_id='$category_id' WHERE book_id='$book_id'";
-
-//     if ($conn->query($sql) === TRUE) {
-//         $_SESSION['message'] = "Book details have been updated!";
-//         $_SESSION['msg_type'] = "success";
-//     } else {
-//         $_SESSION['message'] = "Error updating book details: " . $conn->error;
-//         $_SESSION['msg_type'] = "danger";
-//     }
-
-//     $conn->close();
-//     header("Location: admin_page.php");
-//     exit();
-// }
 
 
 if (isset($_POST['edit_book'])) {
